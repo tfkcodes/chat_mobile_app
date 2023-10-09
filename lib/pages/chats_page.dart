@@ -28,17 +28,11 @@ class _ChatPageState extends State<ChatPage> {
       elevation: 0,
       backgroundColor: greyColor,
       title: Text(
-        "Chats",
+        "Messages",
         style:
             TextStyle(fontSize: 20, color: white, fontWeight: FontWeight.w500),
       ),
-      leading: IconButton(
-          onPressed: null,
-          icon: Text(
-            "Edit",
-            style: TextStyle(
-                fontSize: 16, color: primary, fontWeight: FontWeight.w500),
-          )),
+      
       actions: [
         IconButton(
             onPressed: null,

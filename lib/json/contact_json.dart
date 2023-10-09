@@ -69,10 +69,5 @@ const List contact_data = [
     "name": "Zohre Nemati",
     "is_online" : false,
     "seen" : "last seen 2 minutes ago"
-  },
-  
-  
-  
-  
-  
+  }, 
 ];

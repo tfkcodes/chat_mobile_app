@@ -33,7 +33,7 @@ class _RootAppState extends State<RootApp> {
       children: [
         ChatPage(),
         CallsPage(),
-        
+        ContactPage(),
         SettingPage()
       ],
     );
@@ -42,11 +42,14 @@ class _RootAppState extends State<RootApp> {
     List iconsItems = [
       CommunityMaterialIcons.chat,
       CommunityMaterialIcons.phone,
+      CommunityMaterialIcons.account_multiple,
       CommunityMaterialIcons.cog,
     ];
+
     List textItems = [
       "Messages",
       "Calls",
+      "People",
       "Settings"
       
     ];
@@ -79,7 +82,7 @@ class _RootAppState extends State<RootApp> {
                       ),
                       child:Icon(iconsItems[index],size: 30,color:pageIndex == index ? primary :white.withOpacity(0.5)) ,
                     ) : Icon(iconsItems[index],size: 30,color:pageIndex == index ? primary :white.withOpacity(0.5)),
-                    SizedBox(height: 3,),
+                    
                     Text(textItems[index],style: TextStyle(fontSize: 11,color:pageIndex == index ? primary : white.withOpacity(0.5)),)
                   ],
                 ),

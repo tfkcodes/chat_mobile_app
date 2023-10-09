@@ -32,10 +32,7 @@ class _ContactPageState extends State<ContactPage> {
         fontSize: 20,
         color: white,fontWeight: FontWeight.w500
       ),),
-      leading: IconButton(onPressed: null, icon: Text("Sort",style: TextStyle(
-        fontSize: 16,
-        color: primary,fontWeight: FontWeight.w500
-      ),)),
+      
       actions: [
         IconButton(onPressed: null, icon: Icon(LineIcons.plus,color: primary,))
       ],
@@ -82,51 +79,51 @@ class _ContactPageState extends State<ContactPage> {
             ),
           ),
           SizedBox(height: 10,),
-          getSectionIcons(),
+          // getSectionIcons(),
           getContactLists()
         ],
       ),
     );
   }
-  Widget getSectionIcons(){
-    List icons = [
-      {
-        "icon": LineIcons.mapMarker,
-        "label" : "Find People Nearby"
-      },
-      {
-        "icon": LineIcons.userPlus,
-        "label" : "Invite Friends"
-      },
-    ];
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: Column(
-        children: List.generate(icons.length , (index) {
-          return Column(
-            children: [
-              Row(
-                children: [
-                  Icon(icons[index]['icon'],color: primary,size: 28,),
-                  SizedBox(width: 20,),
-                  Text(icons[index]['label'],style: TextStyle(
-                    fontSize: 16,color: primary,fontWeight: FontWeight.w500
-                  ),)
-                ],
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 50),
-                child: Divider(
-                  thickness: 1,
-                  color: white.withOpacity(0.15),
-                ),
-              )
-            ],
-          );
-        }),
-      ),
-    );
-  }
+  // Widget getSectionIcons(){
+  //   List icons = [
+  //     {
+  //       "icon": LineIcons.mapMarker,
+  //       "label" : "Find People Nearby"
+  //     },
+  //     {
+  //       "icon": LineIcons.userPlus,
+  //       "label" : "Invite Friends"
+  //     },
+  //   ];
+  //   return Padding(
+  //     padding: const EdgeInsets.only(left: 10),
+  //     child: Column(
+  //       children: List.generate(icons.length , (index) {
+  //         return Column(
+  //           children: [
+  //             Row(
+  //               children: [
+  //                 Icon(icons[index]['icon'],color: primary,size: 28,),
+  //                 SizedBox(width: 20,),
+  //                 Text(icons[index]['label'],style: TextStyle(
+  //                   fontSize: 16,color: primary,fontWeight: FontWeight.w500
+  //                 ),)
+  //               ],
+  //             ),
+  //             Padding(
+  //               padding: const EdgeInsets.only(left: 50),
+  //               child: Divider(
+  //                 thickness: 1,
+  //                 color: white.withOpacity(0.15),
+  //               ),
+  //             )
+  //           ],
+  //         );
+  //       }),
+  //     ),
+  //   );
+  // }
   Widget getContactLists(){
     return Padding(
       padding: const EdgeInsets.only(left: 10),

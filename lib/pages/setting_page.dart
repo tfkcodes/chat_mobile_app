@@ -68,7 +68,7 @@ class _SettingPageState extends State<SettingPage> {
            SizedBox(height: 30,),
            getSectionTwo(),
            SizedBox(height: 30,),
-            getSectionThree(),
+            // getSectionThree(),
             SizedBox(height: 30,),
         ],
       ),
