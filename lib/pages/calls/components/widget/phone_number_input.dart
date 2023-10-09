@@ -8,11 +8,15 @@ class PhoneNumberEntrySheet extends StatefulWidget {
 
 class _PhoneNumberEntrySheetState extends State<PhoneNumberEntrySheet> {
   TextEditingController _phoneNumberController = TextEditingController();
+  FocusNode _phoneNumberFocusNode = FocusNode();
+
+
 
   @override
-  void dispose() {
-    _phoneNumberController.dispose();
-    super.dispose();
+  void initState() {
+    super.initState();
+    // Set focus on the phone number field when the widget is created
+    _phoneNumberFocusNode.requestFocus();
   }
 
   void _callNumber() {
@@ -21,6 +25,12 @@ class _PhoneNumberEntrySheetState extends State<PhoneNumberEntrySheet> {
     // For example: launch('tel:$_phoneNumberController.text');
   }
 
+ @override
+  void dispose() {
+    _phoneNumberController.dispose();
+    _phoneNumberFocusNode.requestFocus();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,17 +40,18 @@ class _PhoneNumberEntrySheetState extends State<PhoneNumberEntrySheet> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(
+             TextField(
               controller: _phoneNumberController,
+               focusNode: _phoneNumberFocusNode,
               keyboardType: TextInputType.phone,
               decoration: InputDecoration(
-                labelText: 'Enter Phone Number',
+                labelText: 'Phone Number',
                 prefixIcon: Icon(Icons.phone),
               ),
             ),
             SizedBox(height: 16.0),
             ElevatedButton.icon(
-              onPressed: _callNumber,
+              onPressed: (){},
               icon: Icon(Icons.call),
               label: Text('Call Number'),
             ),
