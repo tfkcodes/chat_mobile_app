@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:chat_mobile_app/json/chat_json.dart';
-import 'package:chat_mobile_app/pages/chat_detail_page.dart';
+import 'package:chat_mobile_app/pages/chats/chat_detail_page.dart';
 import 'package:chat_mobile_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -18,7 +18,7 @@ class _ChatPageState extends State<ChatPage> {
     return Scaffold(
       backgroundColor: bgColor,
       appBar:
-          PreferredSize(child: getAppBar(), preferredSize: Size.fromHeight(60)),
+          PreferredSize(child: getAppBar(), preferredSize: const Size.fromHeight(60)),
       body: getBody(),
     );
   }
@@ -27,14 +27,14 @@ class _ChatPageState extends State<ChatPage> {
     return AppBar(
       elevation: 0,
       backgroundColor: greyColor,
-      title: Text(
+      title: const Text(
         "Messages",
         style:
             TextStyle(fontSize: 20, color: white, fontWeight: FontWeight.w500),
       ),
       
       actions: [
-        IconButton(
+        const IconButton(
             onPressed: null,
             icon: Icon(
               LineIcons.edit,
@@ -51,7 +51,7 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Container(
             height: 68,
-            decoration: BoxDecoration(color: greyColor),
+            decoration: const BoxDecoration(color: greyColor),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
@@ -63,7 +63,7 @@ class _ChatPageState extends State<ChatPage> {
                         color: bgColor,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
-                      style: TextStyle(color: white),
+                      style: const TextStyle(color: white),
                       cursorColor: primary,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -79,8 +79,18 @@ class _ChatPageState extends State<ChatPage> {
                 ],
               ),
             ),
-          ),
-          SizedBox(
+          ),const SizedBox(height: 10), // Add some spacing
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    // Action buttons for filtering messages
+                    filterButton("All", true), // true means it's selected
+                    filterButton("Promotion", false),
+                    filterButton("Private", false),
+                    filterButton("Spam", false),
+                  ],
+                ),
+          const SizedBox(
             height: 20,
           ),
           getListChats()
@@ -110,11 +120,11 @@ class _ChatPageState extends State<ChatPage> {
                           image: NetworkImage(chat_data[index]['img']),
                           fit: BoxFit.cover)),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 12,
                 ),
                 Expanded(
-                  child: Container(
+                  child: SizedBox(
                     height: 70,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -122,11 +132,11 @@ class _ChatPageState extends State<ChatPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
+                            SizedBox(
                               width: (size.width - 40) * 0.6,
                               child: Text(
                                 chat_data[index]['name'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 16,
                                     color: white,
                                     fontWeight: FontWeight.w600),
@@ -139,8 +149,8 @@ class _ChatPageState extends State<ChatPage> {
             
                           ],
                         ),
-                        SizedBox(height: 4,),
-                       Container(
+                        const SizedBox(height: 4,),
+                       SizedBox(
                          width: (size.width-40)*1,
                          child: Row(
                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -151,12 +161,12 @@ class _ChatPageState extends State<ChatPage> {
                                color: white.withOpacity(0.3)
                              ),),
                              chat_data[index]['badge'] > 0 ? badges.Badge(
-                                badgeStyle: badges.BadgeStyle(
+                                badgeStyle: const badges.BadgeStyle(
                                   badgeColor: primary
                                 ),
                                badgeContent: Padding(
                                  padding: const EdgeInsets.all(1),
-                                 child: Text(chat_data[index]['badge'].toString(),style: TextStyle(
+                                 child: Text(chat_data[index]['badge'].toString(),style: const TextStyle(
                                    color: white
                                  ),),
                                ),
@@ -178,4 +188,23 @@ class _ChatPageState extends State<ChatPage> {
       }),
     );
   }
+  Widget filterButton(String label, bool isSelected) {
+  return ElevatedButton(
+    onPressed: () {
+      // Add filter logic here
+    },
+    style: ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(
+        isSelected ? primary : chatBoxOther, // Customize button color
+      ),
+    ),
+    child: Text(
+      label,
+      style: TextStyle(
+        color: isSelected ? white : white.withOpacity(0.5),
+        fontWeight: FontWeight.w600,
+      ),
+    ),
+  );
+}
 }

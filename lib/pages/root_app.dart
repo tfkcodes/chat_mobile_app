@@ -1,9 +1,9 @@
 
 import 'package:badges/badges.dart' as badges;
-import 'package:chat_mobile_app/pages/calls_page.dart';
-import 'package:chat_mobile_app/pages/chats_page.dart';
-import 'package:chat_mobile_app/pages/contact_page.dart';
-import 'package:chat_mobile_app/pages/setting_page.dart';
+import 'package:chat_mobile_app/pages/calls/calls_page.dart';
+import 'package:chat_mobile_app/pages/chats/chats_page.dart';
+import 'package:chat_mobile_app/pages/contacts/contact_page.dart';
+import 'package:chat_mobile_app/pages/settings/setting_page.dart';
 import 'package:chat_mobile_app/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:community_material_icon/community_material_icon.dart';

@@ -1,5 +1,10 @@
 import 'package:chat_mobile_app/json/calls_json.dart';
+import 'package:chat_mobile_app/json/chat_json.dart';
 import 'package:chat_mobile_app/json/contact_json.dart';
+import 'package:chat_mobile_app/pages/calls/components/widget/phone_number_input.dart';
+import 'package:chat_mobile_app/pages/calls/dial_audio/audio_call.dart';
+import 'package:chat_mobile_app/pages/calls/dial_audio/components/audio_call_body.dart';
+import 'package:chat_mobile_app/pages/calls/dial_video/video_call.dart';
 import 'package:chat_mobile_app/theme/colors.dart';
 
 import 'package:community_material_icon/community_material_icon.dart';
@@ -14,12 +19,25 @@ class CallsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: PreferredSize(
-          child: getAppBar(), preferredSize: const Size.fromHeight(60)),
-      body: getBody(),
+          child: getAppBar(context), preferredSize: const Size.fromHeight(60)),
+      body: getBody(context),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+  showModalBottomSheet(
+    context: context,
+    builder: (context) {
+      return PhoneNumberEntrySheet();
+    },
+  );
+
+        },
+        label: const Text('New call'),
+        icon: const Icon(Icons.add),
+      ),
     );
   }
 
-  Widget getAppBar() {
+  Widget getAppBar(BuildContext context) {
     return AppBar(
       elevation: 0,
       backgroundColor: greyColor,
@@ -45,7 +63,7 @@ class CallsPage extends StatelessWidget {
     );
   }
 
-  Widget getBody() {
+  Widget getBody(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -83,19 +101,19 @@ class CallsPage extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          getContactLists()
+          getContactLists(context)
         ],
       ),
     );
   }
 
-  Widget getContactLists() {
+  Widget getContactLists(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 10),
       child: Column(
         children: List.generate(call_list.length, (index) {
           String callStatusText = '';
-           IconData callIcon = Icons.call;
+          IconData callIcon = Icons.call;
           Color callIconColor = chatBoxMe;
 
           // Determine the call status text, icon, and color based on call_status
@@ -132,22 +150,22 @@ class CallsPage extends StatelessWidget {
               ),
             ),
             subtitle: Row(
-            children: [
-              Icon(
-                callIcon,
-                color: callIconColor,
-              ),
-              SizedBox(width: 4),
-              Text(
-                callStatusText,
-                style: TextStyle(
-                  fontSize: 13,
+              children: [
+                Icon(
+                  callIcon,
                   color: callIconColor,
-                  fontWeight: FontWeight.w500,
                 ),
-              ),
-            ],
-          ),
+                SizedBox(width: 4),
+                Text(
+                  callStatusText,
+                  style: TextStyle(
+                    fontSize: 13,
+                    color: callIconColor,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
             trailing: Icon(
               call_list[index]['call_type'] == "video"
                   ? Icons.videocam
@@ -155,7 +173,13 @@ class CallsPage extends StatelessWidget {
               color: primary,
             ),
             onTap: () {
-              // Handle tap on the contact item here if needed.
+              if (call_list[index]['call_type'] == 'video') {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => VideoCallBody()));
+              } else {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => AudioCallBody()));
+              }
             },
           );
         }),
