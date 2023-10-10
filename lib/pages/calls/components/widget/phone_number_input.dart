@@ -1,4 +1,6 @@
+import 'package:chat_mobile_app/pages/calls/components/widget/keyboard.dart';
 import 'package:chat_mobile_app/theme/colors.dart';
+import 'package:community_material_icon/community_material_icon.dart';
 import 'package:flutter/material.dart';
 
 class PhoneNumberEntrySheet extends StatefulWidget {
@@ -20,9 +22,6 @@ class _PhoneNumberEntrySheetState extends State<PhoneNumberEntrySheet> {
   }
 
   void _callNumber() {
-    // You can implement the logic to make a phone call here
-    // You may need to use a package like 'url_launcher' to achieve this
-    // For example: launch('tel:$_phoneNumberController.text');
   }
 
  @override
@@ -35,29 +34,116 @@ class _PhoneNumberEntrySheetState extends State<PhoneNumberEntrySheet> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-             TextField(
-              controller: _phoneNumberController,
-               focusNode: _phoneNumberFocusNode,
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                labelText: 'Phone Number',
-                prefixIcon: Icon(Icons.phone),
+      body: Column(
+        children: [
+          Container(
+            height: 70,
+            alignment: Alignment.center,
+            child: GestureDetector(
+              onTap: () => _clearLastDigit(),
+              onLongPress: () => _clearText(),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Dynamic prefix icon (will appear only when text is not empty)
+                  if (_phoneNumberController.text.isNotEmpty)
+                    Icon(Icons.phone, color: Colors.white),
+                  // Text widget to display the typed value
+                  Text(
+                    _phoneNumberController.text,
+                    style: TextStyle(
+                      fontSize: 30.0,
+                      color: Colors.white,
+                    ),
+                  ),
+                  // Dynamic suffix icon (will appear only when text is not empty)
+                  if (_phoneNumberController.text.isNotEmpty)
+                    Icon(Icons.clear, color: Colors.white),
+                ],
               ),
             ),
-            SizedBox(height: 16.0),
-            ElevatedButton.icon(
-              onPressed: (){},
-              icon: Icon(Icons.call),
-              label: Text('Call Number'),
-            ),
-          ],
-        ),
+          ),
+          const SizedBox(height: 10),
+            Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NumericButton(label: '1', onPressed: () => onKeyPressed('1')),
+                    NumericButton(label: '2', onPressed: () => onKeyPressed('2')),
+                    NumericButton(label: '3', onPressed: () => onKeyPressed('3')),
+                  ],
+                ),
+                const SizedBox(height: 30,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NumericButton(label: '4', onPressed: () => onKeyPressed('4')),
+                    NumericButton(label: '5', onPressed: () => onKeyPressed('5')),
+                    NumericButton(label: '6', onPressed: () => onKeyPressed('6')),
+                  ],
+                ),
+                const SizedBox(height: 30,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    NumericButton(label: '7', onPressed: () => onKeyPressed('7')),
+                    NumericButton(label: '8', onPressed: () => onKeyPressed('8')),
+                    NumericButton(label: '9', onPressed: () => onKeyPressed('9')),
+                  ],
+                ),
+                const SizedBox(height: 30,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                  // Placeholder for empty space
+                    NumericButton(label: '*', onPressed: () => onKeyPressed('*')),
+                    NumericButton(
+                        label: '0', onPressed: () => onKeyPressed('0')),
+                        NumericButton(
+                        label: '#', onPressed: () => onKeyPressed('#')),
+                  ],
+                ),
+
+                const SizedBox(height: 30,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    FloatingActionButton(
+                  onPressed: () {
+                    
+                  },
+                  mini: false,
+                  child:  const Icon(CommunityMaterialIcons.phone),
+                )
+                  ],
+                ),
+              ],
+            )
+        ],
       ),
     );
   }
+  
+  onKeyPressed(String value) {
+    setState(() {
+      _phoneNumberController.text += value;
+    });
+  }
+
+   void _clearText() {
+    setState(() {
+      _phoneNumberController.clear();
+    });
+  }
+
+    void _clearLastDigit() {
+    setState(() {
+      final text = _phoneNumberController.text;
+      if (text.isNotEmpty) {
+        _phoneNumberController.text = text.substring(0, text.length - 1);
+      }
+    });
+  }
+
 }

@@ -1,8 +1,5 @@
 import 'package:chat_mobile_app/json/calls_json.dart';
-import 'package:chat_mobile_app/json/chat_json.dart';
-import 'package:chat_mobile_app/json/contact_json.dart';
 import 'package:chat_mobile_app/pages/calls/components/widget/phone_number_input.dart';
-import 'package:chat_mobile_app/pages/calls/dial_audio/audio_call.dart';
 import 'package:chat_mobile_app/pages/calls/dial_audio/components/audio_call_body.dart';
 import 'package:chat_mobile_app/pages/calls/dial_video/video_call.dart';
 import 'package:chat_mobile_app/theme/colors.dart';
@@ -19,21 +16,38 @@ class CallsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: bgColor,
       appBar: PreferredSize(
-          child: getAppBar(context), preferredSize: const Size.fromHeight(60)),
+          preferredSize: const Size.fromHeight(60),
+          child: getAppBar(context)),
       body: getBody(context),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-  showModalBottomSheet(
-    context: context,
-    builder: (context) {
-      return PhoneNumberEntrySheet();
-    },
-  );
+      floatingActionButton: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 190),
+          child: FloatingActionButton(
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return PhoneNumberEntrySheet();
+                  });
+            },
+            mini: false,
+            child: const Icon(CommunityMaterialIcons.menu),
+          )
 
-        },
-        label: const Text('New call'),
-        icon: const Icon(Icons.add),
-      ),
+          // FloatingActionButton.extended(
+          //   backgroundColor: primary,
+          //   onPressed: () {
+          // showModalBottomSheet(
+          //   context: context,
+          //   builder: (context) {
+          // return PhoneNumberEntrySheet();
+          //   },
+          // );
+
+          //   },
+          //   label: Icon(Icons.call)
+
+          // ),
+          ),
     );
   }
 
@@ -69,7 +83,7 @@ class CallsPage extends StatelessWidget {
         children: [
           Container(
             height: 68,
-            decoration: BoxDecoration(color: greyColor),
+            decoration: const BoxDecoration(color: greyColor),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Column(
@@ -81,7 +95,7 @@ class CallsPage extends StatelessWidget {
                         color: bgColor,
                         borderRadius: BorderRadius.circular(10)),
                     child: TextField(
-                      style: TextStyle(color: white),
+                      style: const TextStyle(color: white),
                       cursorColor: primary,
                       decoration: InputDecoration(
                           border: InputBorder.none,
@@ -98,7 +112,7 @@ class CallsPage extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           getContactLists(context)
@@ -143,7 +157,7 @@ class CallsPage extends StatelessWidget {
             ),
             title: Text(
               call_list[index]['name'],
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 17,
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -155,7 +169,7 @@ class CallsPage extends StatelessWidget {
                   callIcon,
                   color: callIconColor,
                 ),
-                SizedBox(width: 4),
+                const SizedBox(width: 4),
                 Text(
                   callStatusText,
                   style: TextStyle(
@@ -175,10 +189,10 @@ class CallsPage extends StatelessWidget {
             onTap: () {
               if (call_list[index]['call_type'] == 'video') {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => VideoCallBody()));
+                    MaterialPageRoute(builder: (_) => const VideoCallBody()));
               } else {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => AudioCallBody()));
+                    MaterialPageRoute(builder: (_) => const AudioCallBody()));
               }
             },
           );
