@@ -3,12 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
 List setting_section_one = [
-  {"icon": Icons.bookmark, "text": "Saved Messages", "color": Colors.blue[700]},
-  {
-    "icon": CommunityMaterialIcons.phone,
-    "text": "Recent Calls",
-    "color": Colors.green
-  },
+
   {
     "icon": CommunityMaterialIcons.devices,
     "text": "Devices",
